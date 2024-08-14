@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RRG:Rice Reference Genes</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo.jpg">
+    <style>
+        /* 导航栏样式 */
+        .nav-wrap {
+            padding: 8px 0;
+            height: 64px;
+            display: flex;
+            margin-bottom: 40px;
+        }
+
+        img {
+            width: 64px;
+            height: 64px;
+        }
+
+        .nav-title {
+            margin-left: 10px;
+            width: 175px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-title-top {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        #queryForm {
+            display: block;
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .table-container {
+            width: 1000px;
+            height: 500px;
+            overflow-y: auto;
+            margin: 20px auto 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="nav-wrap">
+        <a class="nav-logo" href="page1.html">
+            <img src="./img/logo.jpg">
+        </a>
+        <div class="nav-title">
+            <div class="nav-title-top">R R G</div>
+            <div class="nav-title-bottom">Rice Reference Genes</div>
+        </div>
+    </div>
+</header>
+
+<form id="queryForm">
+    <!-- 新增筛选按钮 -->
+    <button type="button" onclick="downloadData()">Download</button>
+</form>
+<div class="table-container">
+    <!-- 用于显示数据的表格 -->
+    <table id="resultTable">
+        <thead>
+        <tr>
+            <th>Gene Id</th>
+            <th>Average</th>
+            <th>Range Difference</th>
+            <th>Standard Deviation</th>
+        </tr>
+        </thead>
+        <tbody id="resultTableBody">
+        <!-- 这里填充表格数据 -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // 获取 URL 参数
+    var urlParams = new URLSearchParams(window.location.search);
+    var filteredDataParam = urlParams.get('filteredData');
+    var cacheKey = urlParams.get('cacheKey'); // 获取 cacheKey 参数
+
+    // 解码数据
+    var decodedData = JSON.parse(decodeURIComponent(filteredDataParam));
+
+    // 获取表格元素
+    var resultTableBody = document.getElementById('resultTableBody');
+
+    // 在页面上展示数据
+    decodedData.forEach(function (item) {
+        // 创建表格行
+        var row = document.createElement('tr');
+
+        // 创建并添加单元格
+        var riceNameCell = document.createElement('td');
+        riceNameCell.textContent = item.riceName;
+        row.appendChild(riceNameCell);
+
+        var averageCell = document.createElement('td');
+        averageCell.textContent = item.average;
+        row.appendChild(averageCell);
+
+        var rangeDifferenceCell = document.createElement('td');
+        rangeDifferenceCell.textContent = item.rangeDifference;
+        row.appendChild(rangeDifferenceCell);
+
+        var standardDeviationCell = document.createElement('td');
+        standardDeviationCell.textContent = item.standardDeviation;
+        row.appendChild(standardDeviationCell);
+
+        // 将行添加到表格体
+        resultTableBody.appendChild(row);
+    });
+
+    function downloadData() {
+        // 获取 URL 参数
+        var urlParams = new URLSearchParams(window.location.search);
+        var tissueType = urlParams.get('tissueType');
+        var treatmentType = urlParams.get('treatmentType');
+        var selectedSamples = JSON.parse(decodeURIComponent(urlParams.get('selectedSamples')));
+
+        // 构建 riceScreenExcelVoList 数组
+        var riceScreenExcelVoList = decodedData.map(function(item) {
+            return {
+                riceName: item.riceName,
+                average: item.average,
+                rangeDifference: item.rangeDifference,
+                standardDeviation: item.standardDeviation
+            };
+        });
+
+        // 构建请求对象
+        var request = {
+            cacheKey: cacheKey, // 添加 cacheKey
+            riceScreenExcelVoList: riceScreenExcelVoList
+        };
+
+        // 使用 XMLHttpRequest 发送 POST 请求以下载文件
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:8888/rice/rice/screenSamplesExport", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.responseType = 'blob';
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // 创建一个链接元素以触发下载
+                var link = document.createElement('a');
+                var url = window.URL.createObjectURL(xhr.response);
+                link.href = url;
+                link.download = 'rice_samples.xlsx';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            } else {
+                console.error('Error:', xhr.statusText);
+            }
+        };
+
+        xhr.onerror = function () {
+            console.error('Network error');
+        };
+
+        // 发送请求
+        xhr.send(JSON.stringify(request));
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RRG: Rice Reference Genes</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo.jpg">
+    <!-- 加载 jQuery 库 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            background-image: url("./img/nextPage.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .nav-wrap {
+            padding: 8px 0;
+            height: 64px;
+            display: flex;
+        }
+
+        img {
+            width: 64px;
+            height: 64px;
+        }
+
+        .nav-title {
+            margin-left: 10px;
+            width: 175px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-title-top {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .text-center {
+            width: 640px;
+            font-size: 50px;
+            text-align: center;
+            margin: 10px auto 30px;
+        }
+
+        .tissue {
+            width: 150px;
+            height: 70px;
+            background-color: rgba(218, 165, 32, 0.7);
+            text-align: center;
+            margin: 0 auto;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container-button {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px auto 0;
+        }
+
+        button {
+            background-color: rgb(238, 232, 170);
+            border: none;
+            border-radius: 16px;
+            width: 150px;
+            height: 70px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(255, 250, 205);
+        }
+
+        .button-top-tissue-name {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .button-top {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        span {
+            font-size: 18px;
+        }
+
+        .button-bottom-num {
+            color: rgb(255, 0, 0);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="nav-wrap">
+        <a class="nav-logo" href="page1.html">
+            <img src="./img/logo.jpg">
+        </a>
+        <div class="nav-title">
+            <div class="nav-title-top">R R G</div>
+            <div class="nav-title-bottom">Rice Reference Genes</div>
+        </div>
+    </div>
+</header>
+<main>
+    <h1 class="text-center">Rice Reference Genes</h1>
+    <div class="tissue">
+        <div id="tissueName" class="button-top-tissue-name"></div>
+    </div>
+    <div class="container-button">
+        <button data-treatment="cold" onclick="redirectToPage3('cold')">
+            <div class="button-top">Cold</div>
+            <span class="button-bottom-num">0</span>
+            <span>Samples</span>
+        </button>
+        <button data-treatment="diseases" onclick="redirectToPage3('diseases')">
+            <div class="button-top">Diseases</div>
+            <span class="button-bottom-num">0</span>
+            <span>Samples</span>
+        </button>
+        <button data-treatment="drought" onclick="redirectToPage3('drought')">
+            <div class="button-top">Drought</div>
+            <span class="button-bottom-num">0</span>
+            <span>Samples</span>
+        </button>
+        <button data-treatment="heat" onclick="redirectToPage3('heat')">
+            <div class="button-top">Heat</div>
+            <span class="button-bottom-num">0</span>
+            <span>Samples</span>
+        </button>
+        <button data-treatment="hormone" onclick="redirectToPage3('hormone')">
+            <div class="button-top">Hormone</div>
+            <span class="button-bottom-num">0</span>
+            <span>Samples</span>
+        </button>
+        <button data-treatment="metal" onclick="redirectToPage3('metal')">
+            <div class="button-top">Metal</div>
+            <span class="button-bottom-num">0</span>
+            <span>Samples</span>
+        </button>
+        <button data-treatment="salt" onclick="redirectToPage3('salt')">
+            <div class="button-top">Salt</div>
+            <span class="button-bottom-num">0</span>
+            <span>Samples</span>
+        </button>
+        <button data-treatment="mock" onclick="redirectToPage3('mock')">
+            <div class="button-top">Mock</div>
+            <span class="button-bottom-num">0</span>
+            <span>Samples</span>
+        </button>
+    </div>
+</main>
+
+<script>
+
+    window.onload = function () {
+        showTissueType();
+        const urlParamsPage1 = new URLSearchParams(window.location.search)
+        const tissueType = urlParamsPage1.get('tissueType')
+        const tissueName = tissueType.replace(tissueType[0], tissueType[0].toUpperCase())
+        const buttonDom = document.getElementById('tissueName')
+        buttonDom.textContent = tissueName
+    };
+
+    function showTissueType() {
+        const urlParamsPage1 = new URLSearchParams(window.location.search);
+        const tissueType = urlParamsPage1.get('tissueType');
+        const buttonDom = document.getElementById('tissueName');
+        buttonDom.textContent = tissueType;
+        getCounts();
+        getCountsFromBackend(tissueType); // 调用获取数据的函数并传递组织类型参数
+    }
+
+    // JavaScript 函数，用于向后端发送请求获取数据
+    function getCounts() {
+        // 发送Ajax请求
+        $.ajax({
+            url: 'http://localhost:8888/rice/rice/getRiceCount',
+            type: 'POST',
+            success: function (response) {
+                // 根据返回的数据更新页面上每个按钮对应的样本数量
+                var riceCountArray = response.riceCountMap;
+                updateButtonCounts(riceCountArray);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error occurred while fetching data:', error);
+            }
+        });
+    }
+
+    // JavaScript 函数，用于更新页面上每个按钮对应的样本数量
+    function updateButton(riceCountArray) {
+        riceCountArray.forEach(function (item) {
+            var tissueType = item.TISSUE_TYPE;
+            var count = item.COUNT;
+            // 根据按钮的tissueType更新对应按钮的样本数量
+            var button = document.querySelector('button[data-tissue="' + tissueType + '"]');
+            if (button) {
+                var countSpan = button.querySelector('.button-bottom-num');
+                countSpan.textContent = count;
+            }
+        });
+    }
+
+    // JavaScript 函数，用于向后端发送请求获取数据
+    function getCountsFromBackend(tissueType) {
+        // 构造请求数据
+        var requestData = {
+            tissueType: tissueType
+        };
+
+        // 发送Ajax请求
+        fetch('http://localhost:8888/rice/rice/getRiceCountByTissueTypeRequest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                updateButtonCounts(data.riceCountMap);
+            })
+            .catch(error => {
+                console.error('Error occurred while fetching data:', error);
+            });
+    }
+
+    // JavaScript 函数，用于更新页面上每个按钮对应的样本数量
+    function updateButtonCounts(riceCountMap) {
+        riceCountMap.forEach(function (item) {
+            var treatmentType = item.TREATMENT_TYPE; // 修改此处字段为返回数据中的字段名
+            var count = item.COUNT;
+            // 根据按钮的treatmentType更新对应按钮的样本数量
+            var button = document.querySelector('button[data-treatment="' + treatmentType + '"]');
+            if (button) {
+                var countSpan = button.querySelector('.button-bottom-num');
+                countSpan.textContent = count;
+            }
+        });
+    }
+
+    function redirectToPage3(treatmentType) {
+        // 提取 page1.html 传递的字母参数
+        var urlParamsPage1 = new URLSearchParams(window.location.search);
+        var tissueType = urlParamsPage1.get('tissueType');
+
+        // 构造带参数的 URL，跳转到 page3.html，并携带 page1 的字母和当前按钮的数字参数
+        var url = 'page3.html?tissueType=' + tissueType + '&treatmentType=' + treatmentType;
+
+        // 使用 window.location.href 跳转页面
+        window.location.href = url;
+    }
+
+</script>
+</body>
+</html>

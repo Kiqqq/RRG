@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.dao.RiceGenesCategoriesMapper">
+
+    <insert id="insert" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesDto">
+        INSERT INTO RICE_GENES_CATEGORIES
+        (SAMPLE,
+         TITLE,
+         PROJECT,
+         TISSUE,
+         ORGANISM,
+         CULTIVAR,
+         GENO_TYPE,
+         TREATMENT,
+         TOTAL_READS,
+         UNIQUELY_MAPPED_RATE,
+         PMID,
+         RELEASE_DATE,
+         TISSUE_TYPE,
+         TREATMENT_TYPE)
+        VALUES (#{item.sample,jdbcType=VARCHAR},
+                #{item.title,jdbcType=VARCHAR},
+                #{item.project,jdbcType=VARCHAR},
+                #{item.tissue,jdbcType=VARCHAR},
+                #{item.organism,jdbcType=VARCHAR},
+                #{item.cultivar,jdbcType=VARCHAR},
+                #{item.genoType,jdbcType=VARCHAR},
+                #{item.treatment,jdbcType=VARCHAR},
+                #{item.totalReads,jdbcType=VARCHAR},
+                #{item.uniquelyMappedRate,jdbcType=VARCHAR},
+                #{item.pmId,jdbcType=VARCHAR},
+                #{item.releaseDate,jdbcType=VARCHAR},
+                #{item.tissueType,jdbcType=VARCHAR},
+                #{item.treatmentType,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="selectByRiceGenesCategoriesRequest"
+            parameterType="cn.com.common.entity.request.RiceGenesCategoriesRequest"
+            resultType="cn.com.common.entity.dto.RiceGenesCategoriesDto">
+        SELECT
+        SAMPLE as sample,
+        TITLE as title,
+        PROJECT as project,
+        TISSUE as tissue,
+        ORGANISM as organism,
+        CULTIVAR as cultivar,
+        GENO_TYPE as genoType,
+        TREATMENT as treatment,
+        TISSUE_TYPE as tissueType,
+        TREATMENT_TYPE as treatmentType
+        FROM
+        RICE_GENES_CATEGORIES
+        WHERE 1=1
+        <if test="item.tissueType != null and item.tissueType != ''">
+            AND UPPER(TISSUE_TYPE) = UPPER(#{item.tissueType})
+        </if>
+
+        <if test="item.treatmentType != null and item.treatmentType != ''">
+            AND UPPER(TREATMENT_TYPE) = UPPER(#{item.treatmentType})
+        </if>
+
+        <if test="item.project != null and item.project != ''">
+            AND UPPER(PROJECT) LIKE '%' || UPPER(#{item.project}) || '%'
+        </if>
+
+        <if test="item.cultivar != null and item.cultivar != ''">
+            AND UPPER(CULTIVAR) LIKE '%' || UPPER(#{item.cultivar}) || '%'
+        </if>
+
+        <if test="item.treatment != null and item.treatment != ''">
+            AND UPPER(TREATMENT) LIKE '%' || UPPER(#{item.treatment}) || '%'
+        </if>
+    </select>
+
+
+    <select id="getRiceCount" resultType="java.util.Map">
+        SELECT TISSUE_TYPE, COUNT(*) AS count
+        FROM RICE_GENES_CATEGORIES
+        GROUP BY TISSUE_TYPE
+    </select>
+
+    <select id="getRiceCountByTissueTypeRequest"
+            parameterType="cn.com.common.entity.request.RiceCountByTissueTypeRequest"
+            resultType="java.util.Map">
+        SELECT TREATMENT_TYPE, COUNT(*) AS count
+        FROM RICE_GENES_CATEGORIES
+        WHERE 1=1
+        <if test="item.tissueType != null and item.tissueType != ''">
+            AND TISSUE_TYPE = #{item.tissueType}
+        </if>
+        GROUP BY TREATMENT_TYPE
+    </select>
+
+</mapper>

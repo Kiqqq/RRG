@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RRG: Rice Reference Genes</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo.jpg">
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            background-image: url("./img/homePage.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .nav-wrap {
+            padding: 8px 0;
+            height: 64px;
+            display: flex;
+        }
+
+        img {
+            width: 64px;
+            height: 64px;
+        }
+
+        .nav-title {
+            margin-left: 10px;
+            width: 175px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-title-top {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .text-center {
+            width: 640px;
+            font-size: 50px;
+            text-align: center;
+            margin: 40px auto;
+        }
+
+        .container-button {
+            width: 1000px;
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+        }
+
+        button {
+            background-color: rgba(0, 100, 0, 0.35);
+            border: none;
+            border-radius: 16px;
+            width: 150px;
+            height: 70px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgba(0, 100, 0, 0.5);
+        }
+
+        .button-top {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        span {
+            font-size: 18px;
+        }
+
+        .button-bottom-num {
+            color: rgb(255, 0, 0);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="nav-wrap">
+        <a class="nav-logo" href="page1.html">
+            <img src="./img/logo.jpg">
+        </a>
+        <div class="nav-title">
+            <div class="nav-title-top">R R G</div>
+            <div calss="nav-title-bottom">Rice Reference Genes</div>
+        </div>
+    </div>
+</header>
+<main>
+    <h1 class="text-center">Rice Reference Genes</h1>
+    <div class="container-button">
+        <button data-tissue="leaf" onclick="redirectToPage('leaf')">
+            <div class="button-top">Leaf</div>
+            <span class="button-bottom-num">Loading...</span>
+            <span>Samples</span>
+        </button>
+        <button data-tissue="root" onclick="redirectToPage('root')">
+            <div class="button-top">Root</div>
+            <span class="button-bottom-num">Loading...</span>
+            <span>Samples</span>
+        </button>
+        <button data-tissue="seedling" onclick="redirectToPage('seedling')">
+            <div class="button-top">Seedling</div>
+            <span class="button-bottom-num">Loading...</span>
+            <span>Samples</span>
+        </button>
+        <button data-tissue="seed" onclick="redirectToPage('seed')">
+            <div class="button-top">Seed</div>
+            <span class="button-bottom-num">Loading...</span>
+            <span>Samples</span>
+        </button>
+        <button data-tissue="panicle" onclick="redirectToPage('panicle')">
+            <div class="button-top">Panicle</div>
+            <span class="button-bottom-num">Loading...</span>
+            <span>Samples</span>
+        </button>
+    </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // JavaScript 函数，用于跳转到另一个页面并携带参数
+    function redirectToPage(tissueType) {
+        // 构造带参数的URL，例如跳转到 page2.html，并携带 tissueType 参数
+        var url = 'page2.html?tissueType=' + tissueType;
+        // 使用 window.location.href 跳转页面
+        window.location.href = url;
+    }
+
+    // JavaScript 函数，用于向后端发送请求获取数据
+    function getCountsFromBackend() {
+        // 发送Ajax请求
+        $.ajax({
+            url: 'http://localhost:8888/rice/rice/getRiceCount',
+            type: 'POST',
+            success: function (response) {
+                // 根据返回的数据更新页面上每个按钮对应的样本数量
+                var riceCountArray = response.riceCountMap;
+                updateButtonCounts(riceCountArray);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error occurred while fetching data:', error);
+            }
+        });
+    }
+
+    // JavaScript 函数，用于更新页面上每个按钮对应的样本数量
+    function updateButtonCounts(riceCountArray) {
+        riceCountArray.forEach(function (item) {
+            var tissueType = item.TISSUE_TYPE;
+            var count = item.COUNT;
+            // 根据按钮的tissueType更新对应按钮的样本数量
+            var button = document.querySelector('button[data-tissue="' + tissueType + '"]');
+            if (button) {
+                var countSpan = button.querySelector('.button-bottom-num');
+                countSpan.textContent = count;
+            }
+        });
+    }
+
+    // 页面加载完成后，获取数据并更新按钮上的样本数量
+    window.onload = function () {
+        getCountsFromBackend();
+    };
+</script>
+</body>
+</html>

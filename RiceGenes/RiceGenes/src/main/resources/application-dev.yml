@@ -1,0 +1,35 @@
+server:
+  #端口
+  port: 8888
+  address: 0.0.0.0
+
+  servlet:
+    #路径
+    context-path: /rice
+spring:
+  main:
+    #后发现的bean会覆盖之前相同名称的bean
+    allow-bean-definition-overriding: true
+  application:
+    name: kettle
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:ORCL
+    username: system
+    password: admin
+
+  servlet:
+    multipart:
+      max-file-size: 2GB  # 单个文件的最大大小
+      max-request-size: 2GB  # 整个请求的最大大小
+  transaction:
+    annotation:
+      driven: true
+  cache:
+    type: simple
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true

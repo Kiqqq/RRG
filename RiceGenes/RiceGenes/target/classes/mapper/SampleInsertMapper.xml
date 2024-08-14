@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.dao.SampleInsertMapper">
+
+    <insert id="insertLeafMock" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO LEAF_MOCK
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertLeafCold" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO LEAF_COLD
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertLeafHeat" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO LEAF_HEAT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertLeafDrought" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO LEAF_DROUGHT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertLeafSalt" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO LEAF_SALT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertLeafHormone" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO LEAF_HORMONE
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertLeafDiseases" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO LEAF_DISEASES
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertLeafMetal" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO LEAF_METAL
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertPanicleCold" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO PANICLE_COLD
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertPanicleMock" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO PANICLE_MOCK
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertPanicleHeat" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO PANICLE_HEAT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertPanicleDrought" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO PANICLE_DROUGHT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertPanicleSalt" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO PANICLE_SALT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertPanicleHormone" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO PANICLE_HORMONE
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertPanicleDiseases" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO PANICLE_DISEASES
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertPanicleMetal" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO PANICLE_METAL
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertRootCold" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO ROOT_COLD
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertRootMock" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO ROOT_MOCK
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertRootHeat" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO ROOT_HEAT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertRootDrought" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO ROOT_DROUGHT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertRootSalt" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO ROOT_SALT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertRootHormone" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO ROOT_HORMONE
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertRootDiseases" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO ROOT_DISEASES
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertRootMetal" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO ROOT_METAL
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedCold" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEED_COLD
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedMock" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEED_MOCK
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedHeat" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEED_HEAT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedDrought" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEED_DROUGHT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedSalt" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEED_SALT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedHormone" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEED_HORMONE
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedDiseases" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEED_DISEASES
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedMetal" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEED_METAL
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedlingCold" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEEDLING_COLD
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedlingMock" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEEDLING_MOCK
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedlingHeat" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEEDLING_HEAT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedlingDrought" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEEDLING_DROUGHT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedlingSalt" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEEDLING_SALT
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedlingHormone" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEEDLING_HORMONE
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedlingDiseases" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEEDLING_DISEASES
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSeedlingMetal" parameterType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        INSERT INTO SEEDLING_METAL
+        (GENE_ID,
+         SAMPLE,
+         RICE_VALUE)
+        VALUES (#{item.geneId,jdbcType=VARCHAR},
+                #{item.sample,jdbcType=VARCHAR},
+                #{item.riceValue,jdbcType=VARCHAR})
+    </insert>
+
+</mapper>

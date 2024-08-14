@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.dao.SampleSelectMapper">
+
+    <select id="selectLeafCold" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM LEAF_COLD
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectLeafMock" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM LEAF_MOCK
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectLeafHeat" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM LEAF_HEAT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectLeafSalt" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM LEAF_SALT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectLeafDrought" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM LEAF_DROUGHT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectLeafHormone" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM LEAF_HORMONE
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectLeafDiseases" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM LEAF_DISEASES
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectLeafMetal" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM LEAF_METAL
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectPanicleCold" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM PANICLE_COLD
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectPanicleMock" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM PANICLE_MOCK
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectPanicleHeat" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM PANICLE_HEAT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectPanicleDrought" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM PANICLE_DROUGHT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectPanicleSalt" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM PANICLE_SALT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectPanicleHormone" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM PANICLE_HORMONE
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectPanicleDiseases" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM PANICLE_DISEASES
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectPanicleMetal" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM PANICLE_METAL
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectRootCold" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM ROOT_COLD
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectRootMock" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM ROOT_MOCK
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectRootHeat" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM ROOT_HEAT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectRootDrought" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM ROOT_DROUGHT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectRootSalt" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM ROOT_SALT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectRootHormone" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM ROOT_HORMONE
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectRootDiseases" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM ROOT_DISEASES
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectRootMetal" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM ROOT_METAL
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedCold" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEED_COLD
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedMock" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEED_MOCK
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedHeat" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEED_HEAT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedDrought" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEED_DROUGHT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedSalt" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEED_SALT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedHormone" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEED_HORMONE
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedDiseases" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEED_DISEASES
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedMetal" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEED_METAL
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedlingCold" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEEDLING_COLD
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedlingMock" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEEDLING_MOCK
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedlingHeat" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEEDLING_HEAT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedlingDrought" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEEDLING_DROUGHT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedlingSalt" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEEDLING_SALT
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedlingHormone" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEEDLING_HORMONE
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedlingDiseases" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEEDLING_DISEASES
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectSeedlingMetal" resultType="cn.com.common.entity.dto.RiceGenesCategoriesPjDto">
+        SELECT
+        GENE_ID as geneId,
+        SAMPLE as sample,
+        RICE_VALUE as riceValue
+        FROM SEEDLING_METAL
+        WHERE sample IN
+        <foreach item="item" collection="sampleList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

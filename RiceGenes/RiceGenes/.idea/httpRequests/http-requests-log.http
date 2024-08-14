@@ -1,0 +1,4 @@
+GET http://localhost:8888/rice/{POST%20/rice/selectRiceGenesCategories}
+
+###
+

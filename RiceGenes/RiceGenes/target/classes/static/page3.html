@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RRG: Rice Reference Genes</title>
+    <link rel="icon" type="image/x-icon" href="./img/logo.jpg">
+
+    <style>
+        /* 导航栏样式 */
+        .nav-wrap {
+            padding: 8px 0;
+            height: 64px;
+            display: flex;
+            margin-bottom: 40px;
+        }
+
+        img {
+            width: 64px;
+            height: 64px;
+        }
+
+        .nav-title {
+            margin-left: 10px;
+            width: 175px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-title-top {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .filter-content {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .filter-title {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .filter-button {
+            width: 60px;
+            height: 30px;
+            margin-left: 20px;
+            background-color: rgba(0, 100, 0, 0.35);
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        #queryForm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px
+        }
+
+        #queryForm label, input, button {
+            margin-left: 8px;
+        }
+
+        .hide-input {
+            display: none;
+        }
+
+        .table-container {
+            height: 500px;
+            width: 80%;
+            margin: 0 auto;
+            overflow-x: auto;
+            overflow-y: auto;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f2f2f2;
+            cursor: ew-resize;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            width: 125px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .mask {
+            display: none;
+            position: absolute;
+            height: 100%;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(245, 245, 245, 0.6);
+        }
+
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: grey;
+            animation: spin 2s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <div class="nav-wrap">
+        <a class="nav-logo" href="page1.html">
+            <img src="./img/logo.jpg">
+        </a>
+        <div class="nav-title">
+            <div class="nav-title-top">R R G</div>
+            <div class="nav-title-bottom">Rice Reference Genes</div>
+        </div>
+    </div>
+</header>
+<div class="filter-content">
+    <span class="filter-title">Get Suitable Reference Genes! </span>
+    <!-- 新增筛选按钮 -->
+    <button class="filter-button" type="button" onclick="filterSelected()">Go</button>
+</div>
+
+<!-- 修改表单，使用 JavaScript 发送 POST 请求 -->
+<form id="queryForm">
+    <label for="project">Project:</label>
+    <input type="text" id="project" name="project">
+
+    <label for="cultivar">Cultivar:</label>
+    <input type="text" id="cultivar" name="cultivar">
+
+    <label for="treatment">Treatment:</label>
+    <input type="text" id="treatment" name="treatment">
+
+    <label class="hide-input" for="treatment">TissueType:</label>
+    <input class="hide-input" type="text" id="tissueType" name="tissueType">
+
+    <label class="hide-input" for="treatment">TreatmentType:</label>
+    <input class="hide-input" type="text" id="treatmentType" name="treatmentType">
+
+    <!-- 修改按钮点击事件，使用 JavaScript 发送 POST 请求 -->
+    <button type="button" onclick="queryRiceGenesCategories()">Submit</button>
+</form>
+
+<div class="table-container">
+    <!-- 表格用于展示数据和选择 -->
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <input type="checkbox" id="selectAll" onclick="toggleSelectAll()"> <!-- 全选按钮 -->
+            </th>
+            <th>Sample</th>
+            <th>Title</th>
+            <th>Project</th>
+            <th>Tissue</th>
+            <th>Organism</th>
+            <th>Cultivar</th>
+            <th>GenoType</th>
+            <th>Treatment</th>
+            <th>Tissue Type</th>
+            <th>Treatment Type</th>
+        </tr>
+        </thead>
+        <tbody id="dataBody"></tbody> <!-- 表格体 -->
+    </table>
+</div>
+
+<div class="mask"></div>
+<div class="loading"></div>
+
+<script>
+    // 提取 URL 参数
+    var urlParams = new URLSearchParams(window.location.search);
+    var tissueTypeParam = urlParams.get('tissueType');
+    var treatmentTypeParam = urlParams.get('treatmentType');
+
+    // 将参数填充到对应的输入框中
+    document.getElementById('tissueType').value = tissueTypeParam;
+    document.getElementById('treatmentType').value = treatmentTypeParam;
+
+    var dataBody = document.getElementById("dataBody"); // 获取表格体元素的引用
+
+    var allData = []; // 存储所有数据
+    var currentIndex = 0; // 当前显示的数据索引
+
+    function queryRiceGenesCategories() {
+        // 构建查询条件对象
+        var queryData = {
+            project: document.getElementById('project').value,
+            cultivar: document.getElementById('cultivar').value,
+            treatment: document.getElementById('treatment').value,
+            tissueType: document.getElementById('tissueType').value,
+            treatmentType: document.getElementById('treatmentType').value
+        };
+
+        var jsonString = JSON.stringify(queryData);
+
+        // 使用 fetch 发送请求
+        fetch('http://localhost:8888/rice/rice/selectRiceGenesCategories', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: jsonString,
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`); // 确保HTTP请求成功
+                }
+                return response.json(); // 解析 JSON
+            })
+            .then(data => {
+                allData = data.riceGenesCategoriesVoList; // 存储所有数据
+                console.log(allData)
+                currentIndex = 0; // 重置当前显示索引
+                dataBody.innerHTML = ''; // 清空表格体
+                displayResult(); // 显示初始数据
+            })
+            .catch(error => {
+                console.error("Fetch error:", error); // 捕捉和处理错误
+            });
+    }
+
+    function displayResult() {
+        // 获取已选中的行
+        const selectedRows = Array.from(document.querySelectorAll('#dataBody .selectRow:checked')).map(checkbox => checkbox.parentElement.parentElement);
+        const resultTableBody = document.getElementById('dataBody');
+        const endIndex = Math.min(currentIndex + 50, allData.length); // 计算要显示的数据索引
+
+        for (let i = currentIndex; i < endIndex; i++) {
+            const item = allData[i];
+            const row = `
+                <tr>
+                    <td><input type="checkbox" class="selectRow"></td>
+                    <td>${item.sample}</td>
+                    <td>${item.title}</td>
+                    <td>${item.project}</td>
+                    <td>${item.tissue}</td>
+                    <td>${item.organism}</td>
+                    <td>${item.cultivar}</td>
+                    <td>${item.genoType}</td>
+                    <td>${item.treatment}</td>
+                    <td>${item.tissueType}</td>
+                    <td>${item.treatmentType}</td>
+                </tr>
+            `;
+            resultTableBody.innerHTML += row; // 将生成的行添加到表格体
+        }
+
+        currentIndex = endIndex; // 更新当前显示索引
+        // 恢复选中状态
+        selectedRows.forEach(row => {
+            const sample = row.cells[1].innerText;
+            const matchingRow = Array.from(resultTableBody.rows).find(r => r.cells[1].innerText === sample);
+            if (matchingRow) {
+                matchingRow.querySelector('.selectRow').checked = true;
+            }
+        });
+    }
+
+    const tableContent = document.querySelector('.table-container');
+    // 注册滚动事件监听
+    tableContent.addEventListener('scroll', function () {
+        if (tableContent.scrollTop + tableContent.clientHeight >= tableContent.scrollHeight) {
+            displayResult(); // 加载更多数据
+        }
+    });
+
+    // 全选/取消全选
+    function toggleSelectAll() {
+        var selectAllCheckbox = document.getElementById('selectAll');
+        var selectRowCheckboxes = document.getElementsByClassName('selectRow');
+
+        for (var i = 0; i < selectRowCheckboxes.length; i++) {
+            selectRowCheckboxes[i].checked = selectAllCheckbox.checked;
+        }
+    }
+
+    // 获取选中的 Sample
+    function getSelectedSamples() {
+        var selectedSamples = [];
+        var selectRowCheckboxes = document.getElementsByClassName('selectRow');
+        var rows = document.getElementById('dataBody').rows;
+
+        for (var i = 0; i < selectRowCheckboxes.length; i++) {
+            if (selectRowCheckboxes[i].checked && rows[i + 1]) {
+                var sample = rows[i + 1].cells[1].innerText;
+                selectedSamples.push(sample);
+            }
+        }
+
+        return selectedSamples;
+    }
+
+    // 生成唯一的缓存key
+    function generateCacheKey() {
+        return 'cache_' + new Date().getTime() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // 筛选选中的 Sample
+    function filterSelected() {
+        var selectedSamples = getSelectedSamples();
+        const maskDom = document.querySelector('.mask');
+        const loadingDom = document.querySelector('.loading');
+        maskDom.style.display = 'block';
+        loadingDom.style.display = 'block';
+        // 构建查询条件对象
+        var queryData = {
+            sampleList: selectedSamples,
+            tissueType: document.getElementById('tissueType').value,
+            treatmentType: document.getElementById('treatmentType').value
+        };
+
+        var cacheKey = generateCacheKey(); // 生成缓存key
+        queryData.cacheKey = cacheKey; // 将缓存key添加到查询数据中
+
+        // 使用 fetch 函数发送 POST 请求到筛选接口
+        fetch('http://localhost:8888/rice/rice/screen', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(queryData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                // 处理筛选结果
+                console.log('Filtered Data:', data);
+                // 将数据编码为 URL 参数
+                var encodedData = encodeURIComponent(JSON.stringify(data));
+                var encodedSelectedSamples = encodeURIComponent(JSON.stringify(selectedSamples));
+                // 获取 tissueType 和 treatmentType
+                var tissueType = encodeURIComponent(document.getElementById('tissueType').value);
+                var treatmentType = encodeURIComponent(document.getElementById('treatmentType').value);
+                // 跳转到 page4 并传递数据
+                window.location.href = `page4.html?filteredData=${encodedData}&tissueType=${tissueType}&treatmentType=${treatmentType}&selectedSamples=${encodedSelectedSamples}&cacheKey=${cacheKey}`;
+                const timer = setTimeout(() => {
+                    maskDom.style.display = 'none';
+                    loadingDom.style.display = 'none';
+                    clearTimeout(timer);
+                }, 50);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // 页面加载完成后触发的事件
+        queryRiceGenesCategories();
+    });
+
+    // 列宽调整
+    document.querySelectorAll('th').forEach((th, index) => {
+        if(index === 0){
+            th.style.width = '45px'
+        }else{
+            th.addEventListener('mousedown', function (e) {
+                const startX = e.pageX;
+                const startWidth = th.offsetWidth;
+
+                function onMouseMove(e) {
+                    const newWidth = startWidth + e.pageX - startX;
+                    th.style.width = `${newWidth}px`;
+                    th.style.minWidth = `${newWidth}px`;
+                }
+
+                function onMouseUp() {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                }
+
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            });
+        }
+
+    });
+</script>
+
+</body>
+</html>
